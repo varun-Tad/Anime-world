@@ -1,8 +1,8 @@
 import "./components.css";
 
-export const Select = () => {
+export const Select = ({ selectChangeHandler }) => {
   return (
-    <div className="select-container">
+    <div onChange={(e) => selectChangeHandler(e)} className="select-container">
       <select className="select">
         <option>None</option>
         <option>Action</option>
@@ -10,6 +10,7 @@ export const Select = () => {
         <option>Drama</option>
         <option>Mystery</option>
         <option>Suspense</option>
+        <option>Romance</option>
         <option>Adventure</option>
       </select>
     </div>

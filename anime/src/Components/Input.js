@@ -1,9 +1,14 @@
 import "./components.css";
 
-export const Input = ({ placeholder }) => {
+export const Input = ({ InputChangeHandler, placeholder }) => {
   return (
     <div className="input-container">
-      <input placeholder={placeholder} className="input" type="search" />
+      <input
+        onChange={(e) => InputChangeHandler(e)}
+        placeholder={placeholder}
+        className="input"
+        type="search"
+      />
     </div>
   );
 };

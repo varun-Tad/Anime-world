@@ -22,3 +22,16 @@
   border: none;
   font-weight: 500;
 }
+
+.card-container {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card-container:hover {
+  transform: scale(1.1);
+}
+
+.card-title {
+  margin-top: 1rem;
+}

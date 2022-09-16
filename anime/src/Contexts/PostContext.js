@@ -1,12 +1,12 @@
 import { createContext, useContext, useReducer } from "react";
-import { PostReducer } from "../Reducers/PostReducer";
+import { Postreducer } from "../Reducers/PostReducer";
 
 const PostContext = createContext();
 
 const usePost = () => useContext(PostContext);
 
 const PostProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(PostReducer, {
+  const [state, dispatch] = useReducer(Postreducer, {
     page: 1,
     posts: [],
     filteredPosts: [],
