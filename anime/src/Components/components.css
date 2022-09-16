@@ -1,0 +1,24 @@
+.input-container {
+  width: 20rem;
+}
+
+.input-container > .input {
+  outline: none;
+  padding: 5px;
+  width: 100%;
+}
+
+.select-container {
+  width: 10rem;
+}
+
+.select-container > .select {
+  width: 100%;
+  outline: none;
+  border-radius: 0.5rem;
+  padding: 5px;
+  background-color: var(--color-title);
+  cursor: pointer;
+  border: none;
+  font-weight: 500;
+}

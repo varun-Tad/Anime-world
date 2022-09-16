@@ -1,0 +1,22 @@
+:root {
+  --color-purple: rgba(7, 27, 82, 1);
+  --color-green: rgba(0, 128, 128, 1);
+  --color-title: #0ccac4;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(
+    to left,
+    var(--color-purple) 0%,
+    var(--color-green) 100%
+  );
+}
