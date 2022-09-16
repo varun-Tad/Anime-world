@@ -1,5 +1,4 @@
 import { useDrag } from "react-dnd";
-import { PostTypes } from "../utils/postType";
 import "./components.css";
 
 export const PostCard = ({ navigateHandler, post }) => {

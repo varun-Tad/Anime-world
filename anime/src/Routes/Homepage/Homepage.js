@@ -8,8 +8,8 @@ import { getPosts } from "../../Fetchdata";
 import { SearchFilter, selectFilterFunc } from "../../Functions";
 import { useDrop } from "react-dnd";
 import img from "../../images/wishlist.png";
+import { toast } from "react-toastify";
 import "./Homepage.css";
-import { PostTypes } from "../../utils/postType";
 
 export const Homepage = () => {
   const { state, dispatch } = usePost();
@@ -26,9 +26,14 @@ export const Homepage = () => {
   const addToWishlist = (id) => {
     const theWish = state.posts.filter((ele) => id === ele.mal_id);
     if (state.wishlist.some((ele) => ele.mal_id === theWish[0].mal_id)) {
-      console.log("Already exists in wishlist");
+      toast.error("Already exists in wishlist", {
+        autoClose: 3000,
+      });
     } else {
       dispatch({ type: "setWish", value: theWish[0] });
+      toast.success("Added to wishlist !", {
+        autoClose: 3000,
+      });
     }
   };
 
