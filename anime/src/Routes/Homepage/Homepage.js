@@ -1,14 +1,21 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "../../Components/Card";
 import { Input } from "../../Components/Input";
 import { Select } from "../../Components/Select";
 import { usePost } from "../../Contexts/PostContext";
 import { getPosts } from "../../Fetchdata";
 import { SearchFilter, selectFilterFunc } from "../../Functions";
+import img from "../../images/wishlist.png";
 import "./Homepage.css";
 
 export const Homepage = () => {
   const { state, dispatch } = usePost();
+  let navigate = useNavigate();
+
+  const navigateHandler = (post) => {
+    navigate(`/singlepage/${post.mal_id}`);
+  };
 
   const InputChangeHandler = (e) => {
     dispatch({ type: "setCurrentInput", value: e.target.value });
@@ -27,7 +34,6 @@ export const Homepage = () => {
     dispatch({ type: "setCurrentSelected", value: e.target.value });
     if (e.target.value === "None") {
       let ans = SearchFilter(state.filteredPosts, state.currentInput);
-
       dispatch({ type: "setPosts", value: ans });
     } else {
       let arr = SearchFilter(state.filteredPosts, state.currentInput);
@@ -55,7 +61,7 @@ export const Homepage = () => {
         }
       }
 
-      dispatch({ type: "setFilteredPosts", value: res.data }); // Entire data of each page
+      dispatch({ type: "setFilteredPosts", value: res.data });
     });
   }, [state.page]);
 
@@ -69,6 +75,10 @@ export const Homepage = () => {
         <h1>Anime World</h1>
       </div>
       <nav className="nav-container">
+        <div className="wishlist-item">
+          <p>Drag to add to wishlist</p>
+          <img className="img-pic" src={img} alt="wishlist" />
+        </div>
         <div className="input-tag">
           <Input
             InputChangeHandler={InputChangeHandler}
@@ -82,7 +92,11 @@ export const Homepage = () => {
       </nav>
       <main className="posts">
         {state.posts.map((post) => (
-          <Card key={post.mal_id} post={post} />
+          <Card
+            navigateHandler={navigateHandler}
+            key={post.mal_id}
+            post={post}
+          />
         ))}
       </main>
       <div className="buttons">

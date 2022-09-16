@@ -12,6 +12,7 @@ const PostProvider = ({ children }) => {
     filteredPosts: [],
     currentSelected: "None",
     currentInput: "",
+    wishlist: [],
   });
 
   return (
