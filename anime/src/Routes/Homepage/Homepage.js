@@ -1,21 +1,47 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card } from "../../Components/Card";
+import { PostCard } from "../../Components/Card";
 import { Input } from "../../Components/Input";
 import { Select } from "../../Components/Select";
 import { usePost } from "../../Contexts/PostContext";
 import { getPosts } from "../../Fetchdata";
 import { SearchFilter, selectFilterFunc } from "../../Functions";
+import { useDrop } from "react-dnd";
 import img from "../../images/wishlist.png";
 import "./Homepage.css";
+import { PostTypes } from "../../utils/postType";
 
 export const Homepage = () => {
   const { state, dispatch } = usePost();
+
   let navigate = useNavigate();
 
   const navigateHandler = (post) => {
     navigate(`/singlepage/${post.mal_id}`);
   };
+
+  const navigateTowishlist = () => {
+    navigate("/wishlist");
+  };
+  const addToWishlist = (id) => {
+    const theWish = state.posts.filter((ele) => id === ele.mal_id);
+    if (state.wishlist.some((ele) => ele.mal_id === theWish[0].mal_id)) {
+      console.log("Already exists in wishlist");
+    } else {
+      dispatch({ type: "setWish", value: theWish[0] });
+    }
+  };
+
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: "image",
+      drop: (item) => addToWishlist(item.mal_id),
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }),
+    [state.posts]
+  );
 
   const InputChangeHandler = (e) => {
     dispatch({ type: "setCurrentInput", value: e.target.value });
@@ -49,6 +75,7 @@ export const Homepage = () => {
           dispatch({ type: "setPosts", value: res.data });
         } else {
           let arr = selectFilterFunc(res.data, state.currentSelected);
+          console.log("arr", arr);
           dispatch({ type: "setPosts", value: arr });
         }
       } else {
@@ -60,25 +87,27 @@ export const Homepage = () => {
           dispatch({ type: "setPosts", value: arr1 });
         }
       }
-
       dispatch({ type: "setFilteredPosts", value: res.data });
     });
   }, [state.page]);
 
   const nextPage = () => dispatch({ type: "nextPage", value: 1 });
-
   const prevPage = () => dispatch({ type: "prevPage", value: 1 });
 
   return (
     <div className="home-page">
-      <div className="title">
+      <div ref={drop} className="title">
         <h1>Anime World</h1>
       </div>
       <nav className="nav-container">
-        <div className="wishlist-item">
+        <div ref={drop} className="wishlist-item">
           <p>Drag to add to wishlist</p>
           <img className="img-pic" src={img} alt="wishlist" />
+          <button onClick={navigateTowishlist} className="wishlist-btn">
+            Go to wishist
+          </button>
         </div>
+
         <div className="input-tag">
           <Input
             InputChangeHandler={InputChangeHandler}
@@ -92,13 +121,14 @@ export const Homepage = () => {
       </nav>
       <main className="posts">
         {state.posts.map((post) => (
-          <Card
+          <PostCard
             navigateHandler={navigateHandler}
             key={post.mal_id}
             post={post}
           />
         ))}
       </main>
+
       <div className="buttons">
         <button onClick={prevPage} disabled={state.page === 1}>
           ← Prev Page

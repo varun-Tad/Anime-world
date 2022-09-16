@@ -41,7 +41,8 @@
   gap: 1.5rem;
 }
 
-.buttons button {
+.buttons button,
+.wishlist-btn {
   background-color: var(--color-title);
   padding: 7px;
   cursor: pointer;
@@ -51,7 +52,8 @@
   box-shadow: 0 9px #333;
 }
 
-.buttons button:active {
+.buttons button:active,
+.wishlist-btn:active {
   transform: translateY(4px);
   box-shadow: 0 9px #111;
 }
@@ -65,7 +67,7 @@
   position: absolute;
   top: 20rem;
   padding-bottom: 5rem;
-  margin-top: 4rem;
+  margin-top: 6rem;
   margin-left: 10rem;
   margin-right: 10rem;
 }
@@ -79,10 +81,16 @@
   position: absolute;
   left: 4rem;
   border: 2px solid var(--color-title);
-  padding: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .wishlist-item p {
   color: var(--color-title);
   margin-bottom: 2px;
+}
+
+.wishlist-btn {
+  margin-top: 2rem;
 }

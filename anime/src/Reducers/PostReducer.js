@@ -18,6 +18,9 @@ export const Postreducer = (state, action) => {
     case "prevPage": {
       return { ...state, page: state.page - action.value };
     }
+    case "setWish": {
+      return { ...state, wishlist: [...state.wishlist, action.value] };
+    }
     default: {
       return state;
     }
