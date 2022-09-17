@@ -31,13 +31,13 @@ const Homepage = () => {
     theWish = state.posts.filter((ele) => Number(id) === Number(ele.mal_id));
     currentId = id;
     if (state.wishlist.some((ele) => ele.mal_id === theWish[0].mal_id)) {
-      toast.error("Already exists in wishlist", {
+      toast.error("Already exists in watchlist", {
         autoClose: 3000,
       });
     } else {
       dispatch({ type: "setWish", value: theWish[0] });
       setDupWish([...dupWish, theWish[0]]);
-      toast.success("Added to wishlist !", {
+      toast.success("Added to watchlist !", {
         autoClose: 3000,
       });
     }
