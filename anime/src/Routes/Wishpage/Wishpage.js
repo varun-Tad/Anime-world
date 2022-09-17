@@ -18,18 +18,18 @@ const Wishpage = () => {
 
   return (
     <div>
-      <h1 className="wishlist-heading">Wishlist</h1>
+      <h1 className="wishlist-heading">Watchlist</h1>
 
       {state.wishlist.length === 0 ? (
         ""
       ) : (
         <button className="clear-wishlistBtn" onClick={clearWishlist}>
-          Clear Wishlist
+          Clear Watchlist
         </button>
       )}
 
       {state.wishlist.length === 0 ? (
-        <div className="wishlist-empty-text">Wishlist Empty</div>
+        <div className="wishlist-empty-text">Watchlist Empty</div>
       ) : (
         <div className="wishes">
           {state.wishlist.map((wish) => (

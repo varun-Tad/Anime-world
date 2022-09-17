@@ -30,7 +30,6 @@ const Homepage = () => {
   const addToWishlist = (id) => {
     theWish = state.posts.filter((ele) => Number(id) === Number(ele.mal_id));
     currentId = id;
-    console.log(state.wishlist.some((ele) => ele.mal_id === theWish[0].mal_id));
     if (state.wishlist.some((ele) => ele.mal_id === theWish[0].mal_id)) {
       toast.error("Already exists in wishlist", {
         autoClose: 3000,
@@ -104,7 +103,6 @@ const Homepage = () => {
 
   useEffect(() => {
     localStorage.setItem("Animewish", JSON.stringify(state.wishlist));
-    console.log("state.wishlist", state.wishlist);
   }, [state.wishlist]);
 
   const nextPage = () => dispatch({ type: "nextPage", value: 1 });
@@ -117,10 +115,10 @@ const Homepage = () => {
       </div>
       <nav className="nav-container">
         <div ref={drop} className="wishlist-item">
-          <p>Drag to add to wishlist</p>
+          <p>Drag to add to watchlist</p>
           <img className="img-pic" src={img} alt="wishlist" />
           <button onClick={navigateTowishlist} className="wishlist-btn">
-            Go to wishlist
+            Go to watchlist
           </button>
         </div>
 
