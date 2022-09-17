@@ -1,6 +1,6 @@
 import "./components.css";
 
-export const Select = ({ selectChangeHandler }) => {
+const Select = ({ selectChangeHandler }) => {
   return (
     <div onChange={(e) => selectChangeHandler(e)} className="select-container">
       <select className="select">
@@ -16,3 +16,5 @@ export const Select = ({ selectChangeHandler }) => {
     </div>
   );
 };
+
+export default Select;

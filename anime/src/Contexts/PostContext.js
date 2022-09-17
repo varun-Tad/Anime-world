@@ -12,7 +12,7 @@ const PostProvider = ({ children }) => {
     filteredPosts: [],
     currentSelected: "None",
     currentInput: "",
-    wishlist: [],
+    wishlist: JSON.parse(localStorage.getItem("Animewish")) || [],
   });
 
   return (

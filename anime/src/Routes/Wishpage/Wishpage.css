@@ -25,3 +25,15 @@
   margin-top: 10rem;
   color: var(--color-title);
 }
+
+.clear-wishlistBtn {
+  position: relative;
+  left: 70rem;
+  background-color: var(--color-title);
+  padding: 7px;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 9px #333;
+}

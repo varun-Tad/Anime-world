@@ -21,6 +21,9 @@ export const Postreducer = (state, action) => {
     case "setWish": {
       return { ...state, wishlist: [...state.wishlist, action.value] };
     }
+    case "clearWish": {
+      return { ...state, wishlist: [] };
+    }
     default: {
       return state;
     }

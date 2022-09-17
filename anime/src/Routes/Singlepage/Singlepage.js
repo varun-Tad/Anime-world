@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { usePost } from "../../Contexts/PostContext";
 import "./Singlepage.css";
 
-export const Singlepage = () => {
+const Singlepage = () => {
   const { pageid } = useParams();
   const { state } = usePost();
 
@@ -77,3 +77,5 @@ export const Singlepage = () => {
     </>
   );
 };
+
+export default Singlepage;

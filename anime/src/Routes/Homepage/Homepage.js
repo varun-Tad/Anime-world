@@ -1,8 +1,9 @@
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PostCard } from "../../Components/Card";
-import { Input } from "../../Components/Input";
-import { Select } from "../../Components/Select";
+import Input from "../../Components/Input";
+import Select from "../../Components/Select";
 import { usePost } from "../../Contexts/PostContext";
 import { getPosts } from "../../Fetchdata";
 import { SearchFilter, selectFilterFunc } from "../../Functions";
@@ -11,8 +12,11 @@ import img from "../../images/wishlist.png";
 import { toast } from "react-toastify";
 import "./Homepage.css";
 
-export const Homepage = () => {
+const Homepage = () => {
   const { state, dispatch } = usePost();
+  let theWish = [];
+  let currentId;
+  const [dupWish, setDupWish] = useState([]);
 
   let navigate = useNavigate();
 
@@ -24,13 +28,16 @@ export const Homepage = () => {
     navigate("/wishlist");
   };
   const addToWishlist = (id) => {
-    const theWish = state.posts.filter((ele) => id === ele.mal_id);
+    theWish = state.posts.filter((ele) => Number(id) === Number(ele.mal_id));
+    currentId = id;
+    console.log(state.wishlist.some((ele) => ele.mal_id === theWish[0].mal_id));
     if (state.wishlist.some((ele) => ele.mal_id === theWish[0].mal_id)) {
       toast.error("Already exists in wishlist", {
         autoClose: 3000,
       });
     } else {
       dispatch({ type: "setWish", value: theWish[0] });
+      setDupWish([...dupWish, theWish[0]]);
       toast.success("Added to wishlist !", {
         autoClose: 3000,
       });
@@ -80,7 +87,6 @@ export const Homepage = () => {
           dispatch({ type: "setPosts", value: res.data });
         } else {
           let arr = selectFilterFunc(res.data, state.currentSelected);
-          console.log("arr", arr);
           dispatch({ type: "setPosts", value: arr });
         }
       } else {
@@ -96,6 +102,11 @@ export const Homepage = () => {
     });
   }, [state.page]);
 
+  useEffect(() => {
+    localStorage.setItem("Animewish", JSON.stringify(state.wishlist));
+    console.log("state.wishlist", state.wishlist);
+  }, [state.wishlist]);
+
   const nextPage = () => dispatch({ type: "nextPage", value: 1 });
   const prevPage = () => dispatch({ type: "prevPage", value: 1 });
 
@@ -109,7 +120,7 @@ export const Homepage = () => {
           <p>Drag to add to wishlist</p>
           <img className="img-pic" src={img} alt="wishlist" />
           <button onClick={navigateTowishlist} className="wishlist-btn">
-            Go to wishist
+            Go to wishlist
           </button>
         </div>
 
@@ -145,3 +156,5 @@ export const Homepage = () => {
     </div>
   );
 };
+
+export default Homepage;

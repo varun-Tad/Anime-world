@@ -3,17 +3,31 @@ import { PostCard } from "../../Components/Card";
 import { usePost } from "../../Contexts/PostContext";
 import "./Wishpage.css";
 
-export const Wishpage = () => {
-  const { state } = usePost();
+const Wishpage = () => {
+  const { state, dispatch } = usePost();
   let navigate = useNavigate();
 
   const navigateHandler = (post) => {
     navigate(`/singlepage/${post.mal_id}`);
   };
 
+  const clearWishlist = () => {
+    localStorage.removeItem("Animewish");
+    dispatch({ type: "clearWish" });
+  };
+
   return (
     <div>
       <h1 className="wishlist-heading">Wishlist</h1>
+
+      {state.wishlist.length === 0 ? (
+        ""
+      ) : (
+        <button className="clear-wishlistBtn" onClick={clearWishlist}>
+          Clear Wishlist
+        </button>
+      )}
+
       {state.wishlist.length === 0 ? (
         <div className="wishlist-empty-text">Wishlist Empty</div>
       ) : (
@@ -30,3 +44,5 @@ export const Wishpage = () => {
     </div>
   );
 };
+
+export default Wishpage;

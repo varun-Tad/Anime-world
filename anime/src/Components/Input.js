@@ -1,6 +1,7 @@
+import React from "react";
 import "./components.css";
 
-export const Input = ({ InputChangeHandler, placeholder }) => {
+const Input = ({ InputChangeHandler, placeholder }) => {
   return (
     <div className="input-container">
       <input
@@ -12,3 +13,5 @@ export const Input = ({ InputChangeHandler, placeholder }) => {
     </div>
   );
 };
+
+export default React.memo(Input);
